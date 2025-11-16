@@ -96,10 +96,9 @@ bot.start(async (ctx) => {
 
 🚀 Simply send me a TikTok video URL and I will download it for you.
 
-📋 Choose an option below or use the quick action buttons:`)
+📋 Choose an option below:`)
 
   await ctx.reply(welcomeText, getMainMenuKeyboard())
-  await ctx.reply(toMathSans('⚡ Quick Actions:'), getCommandButtons())
 })
 
 bot.hears('📥 Download TikTok', async (ctx) => {
@@ -127,7 +126,7 @@ bot.hears('ℹ️ Help', async (ctx) => {
 • https://www.tiktok.com/...
 • https://tiktok.com/...`)
 
-  await ctx.reply(helpText, getCommandButtons())
+  await ctx.reply(helpText)
 })
 
 bot.hears('📊 My Stats', async (ctx) => {
@@ -144,7 +143,7 @@ bot.hears('📊 My Stats', async (ctx) => {
 🆔 Your ID: ${ctx.from.id}
 📅 Member Since: ${userStats ? new Date(userStats.created_at).toLocaleDateString() : 'Today'}`)
 
-  await ctx.reply(statsText, getCommandButtons())
+  await ctx.reply(statsText)
 })
 
 bot.hears('👨‍💻 Developer', async (ctx) => {
@@ -164,7 +163,7 @@ bot.hears('👨‍💻 Developer', async (ctx) => {
 
 💝 If you find this bot useful, consider supporting the development!`)
 
-  await ctx.reply(devText, getCommandButtons())
+  await ctx.reply(devText)
 })
 
 bot.hears('💝 Donate', async (ctx) => {
@@ -184,16 +183,15 @@ bot.hears('💝 Donate', async (ctx) => {
 
 ❤️ Thank you for your support! Every donation matters! 🙏`)
 
-  await ctx.reply(donateText, getCommandButtons())
+  await ctx.reply(donateText)
 })
 
 bot.hears('🔄 Refresh Menu', async (ctx) => {
   await ctx.reply(toMathSans('🔄 Menu refreshed successfully!'), getMainMenuKeyboard())
-  await ctx.reply(toMathSans('⚡ Quick Actions:'), getCommandButtons())
 })
 
 bot.action('menu_download', async (ctx) => {
-  await ctx.editMessageText(toMathSans('📩 Please send me a TikTok video URL to download.\n\nSupported URLs:\n• https://vm.tiktok.com/...\n• https://www.tiktok.com/...\n• https://tiktok.com/...'), getCommandButtons())
+  await ctx.reply(toMathSans('📩 Please send me a TikTok video URL to download.\n\nSupported URLs:\n• https://vm.tiktok.com/...\n• https://www.tiktok.com/...\n• https://tiktok.com/...'))
 })
 
 bot.action('menu_help', async (ctx) => {
@@ -210,7 +208,7 @@ bot.action('menu_help', async (ctx) => {
 • 🎵 Audio only
 • 📱 HD quality`)
 
-  await ctx.editMessageText(helpText, getCommandButtons())
+  await ctx.reply(helpText)
 })
 
 bot.action('menu_stats', async (ctx) => {
@@ -226,7 +224,7 @@ bot.action('menu_stats', async (ctx) => {
 🎯 Your Downloads: ${userStats?.downloads || 0}
 🆔 Your ID: ${ctx.from.id}`)
 
-  await ctx.editMessageText(statsText, getCommandButtons())
+  await ctx.reply(statsText)
 })
 
 bot.action('menu_developer', async (ctx) => {
@@ -238,7 +236,7 @@ bot.action('menu_developer', async (ctx) => {
 
 💝 Consider supporting development!`)
 
-  await ctx.editMessageText(devText, getCommandButtons())
+  await ctx.reply(devText)
 })
 
 bot.action('menu_donate', async (ctx) => {
@@ -249,15 +247,15 @@ bot.action('menu_donate', async (ctx) => {
 
 ❤️ Your support helps maintain this bot!`)
 
-  await ctx.editMessageText(donateText, getCommandButtons())
+  await ctx.reply(donateText)
 })
 
 bot.action('menu_refresh', async (ctx) => {
-  await ctx.editMessageText(toMathSans('🔄 Menu refreshed!'), getCommandButtons())
+  await ctx.reply(toMathSans('🔄 Menu refreshed!'), getMainMenuKeyboard())
 })
 
 bot.action('menu_back', async (ctx) => {
-  await ctx.editMessageText(toMathSans('🏠 Main Menu:'), getCommandButtons())
+  await ctx.reply(toMathSans('🏠 Main Menu:'), getMainMenuKeyboard())
 })
 
 bot.command('help', async (ctx) => {
@@ -271,7 +269,7 @@ bot.command('help', async (ctx) => {
 
 ✨ All features available!`)
 
-  await ctx.reply(helpText, getCommandButtons())
+  await ctx.reply(helpText)
 })
 
 bot.command('stats', async (ctx) => {
@@ -286,7 +284,7 @@ bot.command('stats', async (ctx) => {
 📥 Total Downloads: ${totalDownloads[0]?.total || 0}
 🎯 Your Downloads: ${userStats?.downloads || 0}`)
 
-  await ctx.reply(statsText, getCommandButtons())
+  await ctx.reply(statsText)
 })
 
 bot.command('developer', async (ctx) => {
@@ -297,7 +295,7 @@ bot.command('developer', async (ctx) => {
 📞 8183360446
 📧 @toshidev0`)
 
-  await ctx.reply(devText, getCommandButtons())
+  await ctx.reply(devText)
 })
 
 bot.command('donate', async (ctx) => {
@@ -309,7 +307,7 @@ bot.command('donate', async (ctx) => {
 
 ❤️ Thank you!`)
 
-  await ctx.reply(donateText, getCommandButtons())
+  await ctx.reply(donateText)
 })
 
 bot.command('about', async (ctx) => {
@@ -327,7 +325,7 @@ bot.command('about', async (ctx) => {
 • Fast processing
 • User statistics`)
 
-  await ctx.reply(aboutText, getCommandButtons())
+  await ctx.reply(aboutText)
 })
 
 function isTikTokUrl(url) {
@@ -346,7 +344,7 @@ bot.on('text', async (ctx) => {
   if (message.startsWith('/')) return
 
   if (!isTikTokUrl(message)) {
-    return ctx.reply(toMathSans('❌ Please send a valid TikTok URL.\n\nUse the Help button for instructions.'), getCommandButtons())
+    return ctx.reply(toMathSans('❌ Please send a valid TikTok URL.\n\nUse the Help button for instructions.'))
   }
 
   try {
@@ -354,7 +352,7 @@ bot.on('text', async (ctx) => {
 
     ctx.reply(toMathSans('🎯 Choose download option:'), getDownloadButtons(ctx.from.id))
   } catch (error) {
-    ctx.reply(toMathSans('❌ Error processing request'), getCommandButtons())
+    ctx.reply(toMathSans('❌ Error processing request'))
   }
 })
 
@@ -377,18 +375,18 @@ async function handleDownload(ctx, userId, watermark = false, audioOnly = false)
   try {
     const userSession = userSessions.get(parseInt(userId))
     if (!userSession || !userSession.url) {
-      await ctx.editMessageText(toMathSans('❌ Session expired. Please send the URL again.'), getCommandButtons())
+      await ctx.reply(toMathSans('❌ Session expired. Please send the URL again.'))
       return
     }
 
     const url = userSession.url
-    const processingMsg = await ctx.editMessageText(toMathSans('⏳ Processing your request...\n\n📥 Downloading video data...'))
+    const processingMsg = await ctx.reply(toMathSans('⏳ Processing your request...\n\n📥 Downloading video data...'))
 
     const apiUrl = "https://www.tikwm.com/api/"
     const response = await axios.post(apiUrl, { url, hd: 1 })
 
     if (response.data.code !== 0) {
-      await ctx.editMessageText(toMathSans('❌ Failed to fetch video.\n\nPlease check the URL and try again.'), getCommandButtons())
+      await ctx.reply(toMathSans('❌ Failed to fetch video.\n\nPlease check the URL and try again.'))
       return
     }
 
@@ -407,7 +405,7 @@ async function handleDownload(ctx, userId, watermark = false, audioOnly = false)
       { $inc: { downloads: 1 } }
     )
 
-    await ctx.editMessageText(toMathSans('✅ Video processed!\n\n📤 Sending now...'))
+    await ctx.reply(toMathSans('✅ Video processed!\n\n📤 Sending now...'))
 
     const author = data.author?.nickname || data.author?.unique_id || data.author || 'Unknown'
     const title = data.title || 'TikTok Video'
@@ -443,7 +441,7 @@ async function handleDownload(ctx, userId, watermark = false, audioOnly = false)
       downloadUrl = data.play
       await ctx.replyWithVideo(downloadUrl, { caption })
     } else {
-      await ctx.editMessageText(toMathSans('❌ No download URL found'), getCommandButtons())
+      await ctx.reply(toMathSans('❌ No download URL found'))
       return
     }
 
@@ -452,7 +450,7 @@ async function handleDownload(ctx, userId, watermark = false, audioOnly = false)
 
   } catch (error) {
     console.error('Download error:', error)
-    await ctx.editMessageText(toMathSans('❌ Error downloading video.\n\nPlease try again with a different URL.'), getCommandButtons())
+    await ctx.reply(toMathSans('❌ Error downloading video.\n\nPlease try again with a different URL.'))
   }
 }
 
